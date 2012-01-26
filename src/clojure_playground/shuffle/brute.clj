@@ -11,6 +11,9 @@
 ; Write a function/method called noOfShuffles that taxes x and y and returns the number of shuffles 
 ; that are required in order to return the pack of cards to its original order. For any invalid 
 ; input values, -1 should be returned.
+
+(ns clojure-playground.shuffle.brute)
+
 (defn get-top 
   [coll y]
   (take y coll))
