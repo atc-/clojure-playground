@@ -19,6 +19,11 @@
   [coll y]
   (drop y coll))
 
+(defn reduce-to-pile
+  "Move one item from the bottom (i.e. last) of each 'pile' (top and btm) collections and place in the pile coll, ignoring nils."
+  [pile top btm]
+  (conj pile (last top) (last btm)))
+
 (defn shuf 
   "Cut the items at index y and shuffle by taking each bottom (last) item from each portion (top then bottom portion)
   and adding to a return list"
@@ -28,15 +33,15 @@
     (println pile top btm)
     (if (= (count coll) (count pile))
       pile ; shuffled successfully: same number of items in each coll
-      (recur (conj pile (last top) (last btm)) (butlast top) (butlast btm))))) ; keep shufflin'!
+      (recur (reduce-to-pile pile top btm) (butlast top) (butlast btm))))) ; keep shufflin'!
  
 (defn noOfShuffles [x y]
   (if (< y x)
     (loop
-      [pile (shuf op y) cnt 1 op (range 1 (+ 1 x))]
+      [op (range 1 (+ 1 x)) pile (shuf op y) cnt 1 ]
         (println pile cnt)
         (if (not= op pile)
-          (recur (shuf pile y) (+ 1 cnt) op)
+          (recur op (shuf pile y) (+ 1 cnt))
           cnt)) ; work done
       -1
     ))
@@ -49,7 +54,8 @@
         ; A "shortcut" to the second command line argument
         (def Y (Integer/parseInt (last *command-line-args*)))
 
-        (println (noOfShuffles X Y))
+        ;(println (noOfShuffles X Y))
+        (println (shuf (range 1 (+ 1 X)) Y))
     )
 
     (println "Please provide X and Y")
