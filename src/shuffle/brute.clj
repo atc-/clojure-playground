@@ -56,5 +56,5 @@
 
     (if (< x 13)
       (println (noOfShuffles x y))
-      (println "Sorry, I can't process > 12 cards")))
+      (-1)
   (println "Please provide X and Y"))
