@@ -27,22 +27,19 @@
     [pile '() top (get-top coll y) btm (get-btm coll y)]
     (println pile top btm)
     (if (= (count coll) (count pile))
-      pile ; shuffled successfully
+      pile ; shuffled successfully: same number of items in each coll
       (recur (conj pile (last top) (last btm)) (butlast top) (butlast btm))))) ; keep shufflin'!
  
 (defn noOfShuffles [x y]
   (if (< y x)
-    (do
-      (def op (range 1 (+ 1 x))) ; the reference deck
-      (println "op is " op)
-      (loop
-        [pile (shuf op y) cnt 1]
-          (println pile cnt)
-          (if (not= op pile)
-            (recur (shuf pile y) (+ 1 cnt))
-            cnt)) ; work done
-      )
-    -1))
+    (loop
+      [pile (shuf op y) cnt 1 op (range 1 (+ 1 x))]
+        (println pile cnt)
+        (if (not= op pile)
+          (recur (shuf pile y) (+ 1 cnt) op)
+          cnt)) ; work done
+      -1
+    ))
  
 (if (and *command-line-args* (= 2 (count *command-line-args*)))
     (do
