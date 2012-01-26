@@ -31,7 +31,7 @@
   [coll y]
   (loop
     [pile '() top (get-top coll y) btm (get-btm coll y)]
-    (println pile top btm)
+    ;(println pile top btm)
     (if (= (count coll) (count pile))
       pile ; shuffled successfully: same number of items in each coll
       (recur (interleave-pile pile top btm) (butlast top) (butlast btm))))) ; keep shufflin'!
@@ -40,7 +40,7 @@
   (if (< y x)
     (loop
       [op (range 1 (+ 1 x)) pile (shuf op y) cnt 1 ]
-        (println pile cnt)
+        ;(println pile cnt)
         (if (not= op pile)
           (recur op (shuf pile y) (+ 1 cnt))
           cnt)) ; work done
@@ -49,12 +49,13 @@
 (if (and *command-line-args* (= 2 (count *command-line-args*)))
     (do
         ; A "shortcut" to the first command line argument
-        (def X (Integer/parseInt (first *command-line-args*)))
+        (def x (Integer/parseInt (first *command-line-args*)))
 
         ; A "shortcut" to the second command line argument
-        (def Y (Integer/parseInt (last *command-line-args*)))
+        (def y (Integer/parseInt (last *command-line-args*)))
 
-        ;(println (noOfShuffles X Y))
-        (println (shuf (range 1 (+ 1 X)) Y)))
+      (if (< x 13)
+        (println (noOfShuffles x y))
+        (println "Sorry, I can't process > 12 cards"))
 
-    (println "Please provide X and Y"))
+    (println "Please provide X and Y")))
