@@ -47,15 +47,14 @@
       -1))
 
 (if (and *command-line-args* (= 2 (count *command-line-args*)))
-    (do
-        ; A "shortcut" to the first command line argument
-        (def x (Integer/parseInt (first *command-line-args*)))
+  (do
+    ; A "shortcut" to the first command line argument
+    (def x (Integer/parseInt (first *command-line-args*)))
 
-        ; A "shortcut" to the second command line argument
-        (def y (Integer/parseInt (last *command-line-args*)))
+    ; A "shortcut" to the second command line argument
+    (def y (Integer/parseInt (last *command-line-args*)))
 
-      (if (< x 13)
-        (println (noOfShuffles x y))
-        (println "Sorry, I can't process > 12 cards"))
-
-    (println "Please provide X and Y")))
+    (if (< x 13)
+      (println (noOfShuffles x y))
+      (println "Sorry, I can't process > 12 cards")))
+  (println "Please provide X and Y"))
