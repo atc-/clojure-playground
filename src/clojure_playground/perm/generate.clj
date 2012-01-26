@@ -1,5 +1,5 @@
 ; A program to generate random permutations of a given numerical input
-(ns perm)
+(ns clojure-playground.perm.generate)
 
 (defn random
   "Generate a number between i to n inclusive"
