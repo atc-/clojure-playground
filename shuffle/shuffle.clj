@@ -19,10 +19,11 @@
   [coll y]
   (drop y coll))
 
-(defn reduce-to-pile
+(defn interleave-pile
   "Move one item from the bottom (i.e. last) of each 'pile' (top and btm) collections and place in the pile coll, ignoring nils."
   [pile top btm]
-  (conj pile (last top) (last btm)))
+  ;(conj pile (last top) (last btm)))
+  (filter #(not (nil? %)) (list* (last btm) (last top) pile)))
 
 (defn shuf 
   "Cut the items at index y and shuffle by taking each bottom (last) item from each portion (top then bottom portion)
@@ -33,7 +34,7 @@
     (println pile top btm)
     (if (= (count coll) (count pile))
       pile ; shuffled successfully: same number of items in each coll
-      (recur (reduce-to-pile pile top btm) (butlast top) (butlast btm))))) ; keep shufflin'!
+      (recur (interleave-pile pile top btm) (butlast top) (butlast btm))))) ; keep shufflin'!
  
 (defn noOfShuffles [x y]
   (if (< y x)
@@ -43,9 +44,8 @@
         (if (not= op pile)
           (recur op (shuf pile y) (+ 1 cnt))
           cnt)) ; work done
-      -1
-    ))
- 
+      -1))
+
 (if (and *command-line-args* (= 2 (count *command-line-args*)))
     (do
         ; A "shortcut" to the first command line argument
@@ -55,8 +55,6 @@
         (def Y (Integer/parseInt (last *command-line-args*)))
 
         ;(println (noOfShuffles X Y))
-        (println (shuf (range 1 (+ 1 X)) Y))
-    )
+        (println (shuf (range 1 (+ 1 X)) Y)))
 
-    (println "Please provide X and Y")
-)
+    (println "Please provide X and Y"))
