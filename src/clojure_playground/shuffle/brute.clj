@@ -39,7 +39,8 @@
       pile ; shuffled successfully: same number of items in each coll
       (recur (interleave-pile pile top btm) (butlast top) (butlast btm))))) ; keep shufflin'!
  
-(defn noOfShuffles [x y]
+(defn noOfShuffles 
+  [x y]
   (if (< y x)
     (loop
       [op (range 1 (+ 1 x)) pile (shuf op y) cnt 1 ]
@@ -48,16 +49,3 @@
           (recur op (shuf pile y) (+ 1 cnt))
           cnt)) ; work done
       -1))
-
-(if (and *command-line-args* (= 2 (count *command-line-args*)))
-  (do
-    ; A "shortcut" to the first command line argument
-    (def x (Integer/parseInt (first *command-line-args*)))
-
-    ; A "shortcut" to the second command line argument
-    (def y (Integer/parseInt (last *command-line-args*)))
-
-    (if (< x 13)
-      (println (noOfShuffles x y))
-      (-1)
-  (println "Please provide X and Y"))
